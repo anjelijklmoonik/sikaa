@@ -43,8 +43,8 @@ const Aturan: React.FC = () => {
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       {/* Header */}
-      <header className="bg-[#fcce7e] p-1">
-        <div className="flex flex-row gap-x-10 items-center">
+      <header className="bg-[#fcce7e] p-4">
+        <div className="flex flex-row gap-x-5 items-center">
           <Image
             src="/logo.svg"
             alt="Logo"
@@ -53,8 +53,12 @@ const Aturan: React.FC = () => {
             className="Logo.svg"
           />
           <div>
-            <h1 className="text-xl font-bold">SMA-SMK ADVENT KLABAT MANADO</h1>
-            <h2 className="text-lg">SMABAT SETIA</h2>
+            <h1 className="text-xl font-bold font-serif">
+              SMA-SMK ADVENT KLABAT MANADO
+            </h1>
+            <h2 className="text-lg font-serif">
+              <em>SMABAT SETIA</em>
+            </h2>
           </div>
         </div>
       </header>
@@ -131,11 +135,14 @@ const Aturan: React.FC = () => {
         </div>
 
         {/* Main Content */}
+
         <div className="flex-1 p-4 ml-64">
           <header className="bg-[#fcce7e] p-1 rounded-md">
             <div className="flex flex-row gap-x-5 items-center">
               <div>
-                <h1 className="text-xl font-bold text-black">ATURAN SEKOLAH</h1>
+                <h1 className="text-lg font-bold text-center">
+                  ATURAN SEKOLAH
+                </h1>
               </div>
             </div>
           </header>

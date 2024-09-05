@@ -165,7 +165,7 @@ const Pencapaian: NextPage = () => {
             </a>
           </div>
         </div>
-        <div className="absolute bottom-4 right-4 text-right">
+        <div className="absolute bottom-2 right-4 text-right">
           <p className="text-xs mb-1">
             &copy; 2024 SMA-SMK Advent Klabat Manado
           </p>

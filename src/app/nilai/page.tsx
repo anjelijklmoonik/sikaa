@@ -101,8 +101,8 @@ const Nilai = () => {
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       {/* Header */}
-      <header className="bg-[#fcce7e] p-1">
-        <div className="flex flex-row gap-x-10 items-center">
+      <header className="bg-[#fcce7e] p-4">
+        <div className="flex flex-row gap-x-5 items-center">
           <Image
             src="/logo.svg"
             alt="Logo"
@@ -111,8 +111,12 @@ const Nilai = () => {
             className="Logo.svg"
           />
           <div>
-            <h1 className="text-xl font-bold">SMA-SMK ADVENT KLABAT MANADO</h1>
-            <h2 className="text-lg">SMABAT SETIA</h2>
+            <h1 className="text-xl font-bold font-serif">
+              SMA-SMK ADVENT KLABAT MANADO
+            </h1>
+            <h2 className="text-lg font-serif">
+              <em>SMABAT SETIA</em>
+            </h2>
           </div>
         </div>
       </header>
@@ -193,8 +197,8 @@ const Nilai = () => {
           <header className="bg-[#fcce7e] p-1 rounded-md">
             <div className="flex flex-row gap-x-5 items-center">
               <div>
-                <h1 className="text-xl font-bold text-black">
-                  NILAIK-NILAI SEMESTER
+                <h1 className="text-lg font-bold text-center">
+                  NILAI-NILAI SEMESTER
                 </h1>
               </div>
             </div>
@@ -269,7 +273,7 @@ const Nilai = () => {
             </a>
           </div>
         </div>
-        <div className="absolute bottom-4 right-4 text-right">
+        <div className="absolute bottom-2 right-4 text-right">
           <p className="text-xs mb-1">
             &copy; 2024 SMA-SMK Advent Klabat Manado
           </p>
