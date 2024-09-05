@@ -150,13 +150,37 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-gray-300 p-4 mt-auto flex justify-between items-center">
-        <p className="text-sm">
-          &copy; 2024 SMA-SMK ADVENT KLABAT MANADO. All rights reserved.
-        </p>
-        <div>
+      {/*Footer*/}
+      <footer className="bg-gray-300 p-4 mt-auto relative">
+        <div className="flex justify-between items-center text-xs">
+          <div>
+            <a
+              href="https://goo.gl/maps/your-map-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-500 hover:underline"
+            >
+              Alamat: Jl. Daan Mogot No.11, Tikala Baru, Kec. Tikala, Kota
+              Manado, Sulawesi Utara
+            </a>
+            <a
+              href="mailto:smaadventklabat@gmail.com"
+              className="block text-blue-500 hover:underline"
+            >
+              Email: smaadventklabat@gmail.com
+            </a>
+            <a
+              href="tel:+0431798872"
+              className="block text-blue-500 hover:underline"
+            >
+              No. Telp: 0431-798-872
+            </a>
+          </div>
+        </div>
+        <div className="absolute bottom-2 right-4 text-right">
+          <p className="text-xs mb-1">
+            &copy; 2024 SMA-SMK Advent Klabat Manado
+          </p>
           <button className="bg-black hover:bg-[#f9b75e] text-white font-light py-2 px-4 rounded">
             Logout
           </button>

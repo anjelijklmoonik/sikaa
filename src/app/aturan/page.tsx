@@ -11,93 +11,35 @@ import {
   BanknotesIcon,
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
 
-type MataPelajaranType = {
-  mataPelajaran: string;
-  nilai: number;
+// Define a type for the school rules
+type Rule = {
+  title: string;
+  description: string;
 };
 
-type SemesterType = {
-  semester: number;
-  mataPelajaran: MataPelajaranType[];
-  expanded: boolean;
-};
+// Sample data for school rules
+const rules: Rule[] = [
+  {
+    title: "Kedisiplinan",
+    description:
+      "Siswa harus datang tepat waktu dan mematuhi jadwal yang telah ditentukan oleh sekolah.",
+  },
+  {
+    title: "Seragam",
+    description:
+      "Siswa wajib mengenakan seragam sekolah sesuai dengan peraturan yang berlaku pada hari tersebut.",
+  },
+  {
+    title: "Kebersihan",
+    description:
+      "Siswa harus menjaga kebersihan lingkungan sekolah dan membuang sampah pada tempatnya.",
+  },
+  // Add more rules as needed
+];
 
-const Nilai = () => {
-  const [semesterData, setSemesterData] = useState<SemesterType[]>([
-    {
-      semester: 1,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 85 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 80 },
-        { mataPelajaran: "Fisika", nilai: 89 },
-        { mataPelajaran: "Biologi", nilai: 100 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 2,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 75 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 90 },
-        { mataPelajaran: "Fisika", nilai: 87 },
-        { mataPelajaran: "Biologi", nilai: 95 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 3,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 90 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 95 },
-        { mataPelajaran: "Fisika", nilai: 93 },
-        { mataPelajaran: "Biologi", nilai: 95 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 4,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 78 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 88 },
-        { mataPelajaran: "Fisika", nilai: 85 },
-        { mataPelajaran: "Biologi", nilai: 97 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 5,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 82 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 92 },
-        { mataPelajaran: "Fisika", nilai: 91 },
-        { mataPelajaran: "Biologi", nilai: 96 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 6,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 86 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 94 },
-        { mataPelajaran: "Fisika", nilai: 89 },
-        { mataPelajaran: "Biologi", nilai: 98 },
-      ],
-      expanded: false,
-    },
-  ]);
-
-  const handleExpand = (index: number) => {
-    const updatedData = semesterData.map((semester, idx) => {
-      if (index === idx) {
-        return { ...semester, expanded: !semester.expanded };
-      }
-      return semester;
-    });
-    setSemesterData(updatedData);
-  };
-
+// React component for the school rules page
+const Aturan: React.FC = () => {
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       {/* Header */}
@@ -189,56 +131,27 @@ const Nilai = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 ml-64 p-4">
+        <div className="flex-1 p-4 ml-64">
           <header className="bg-[#fcce7e] p-1 rounded-md">
             <div className="flex flex-row gap-x-5 items-center">
               <div>
-                <h1 className="text-xl font-bold text-black">
-                  NILAIK-NILAI SEMESTER
-                </h1>
+                <h1 className="text-xl font-bold text-black">ATURAN SEKOLAH</h1>
               </div>
             </div>
           </header>
 
-          {/* Main Content */}
-          <div className="mt-5 bg-white">
-            <table className="w-full bg-white border-collapse">
-              <thead>
-                <tr>
-                  <th className="p-3 border-b-2 border-gray-300">Semester</th>
-                </tr>
-              </thead>
-              <tbody>
-                {semesterData.map((item, index) => (
-                  <>
-                    <tr
-                      key={index}
-                      className="cursor-pointer text-center hover:bg-gray-100"
-                      onClick={() => handleExpand(index)}
-                    >
-                      <td className="p-3 border-b border-gray-300">
-                        Semester {item.semester}
-                      </td>
-                    </tr>
-                    {item.expanded && (
-                      <tr>
-                        <td className="p-3 border-b border-gray-300">
-                          <ul>
-                            {item.mataPelajaran.map((mapel, idx) => (
-                              <li key={idx} className="flex justify-between">
-                                <span>{mapel.mataPelajaran}</span>
-                                <span>{mapel.nilai}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </td>
-                      </tr>
-                    )}
-                  </>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <main className="mt-6">
+            <div className="mt-5 bg-white p-4">
+              {rules.map((rule, index) => (
+                <div key={index} className="p-3 mb-4 border-b border-gray-300">
+                  <h3 className="text-lg font-bold">
+                    {index + 1}. {rule.title}
+                  </h3>
+                  <p>{rule.description}</p>
+                </div>
+              ))}
+            </div>
+          </main>
         </div>
       </div>
 
@@ -269,7 +182,7 @@ const Nilai = () => {
             </a>
           </div>
         </div>
-        <div className="absolute bottom-4 right-4 text-right">
+        <div className="absolute bottom-2 right-4 text-right">
           <p className="text-xs mb-1">
             &copy; 2024 SMA-SMK Advent Klabat Manado
           </p>
@@ -282,4 +195,4 @@ const Nilai = () => {
   );
 };
 
-export default Nilai;
+export default Aturan;
