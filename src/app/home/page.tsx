@@ -113,14 +113,14 @@ export default function Home() {
                 WELCOME TO SIKAA
               </h1>
             </div>
-            <div className="bg-[#fcce7e] p-4 shadow-lg rounded-t-xl border border-gray-400 border-dashed border-b-0">
+            <div className="bg-[#fcce7e] p-4 shadow-lg rounded-t-xl border border-gray-400 border-dashed border-b-0 text-center">
               <h2 className="text-lg font-bold">VISI</h2>
               <p>
                 “Berkarakter seperti Yesus Kristus, Mandiri serta berprestasi
                 dalam Ilmu Pengetahuan dan Teknologi.”
               </p>
             </div>
-            <div className="bg-[#fcce7e] p-4 shadow-lg border border-gray-400 border-b-0 border-t-0">
+            <div className="bg-[#fcce7e] p-4 shadow-lg border border-gray-400 border-b-0 border-t-0 text-center">
               <h2 className="text-lg font-bold">MISI</h2>
               <p>
                 1. Mewujudkan Pendidikan Advent yang beriman dan suka melayani.{" "}
@@ -131,7 +131,7 @@ export default function Home() {
                 Mandiri.
               </p>
             </div>
-            <div className="bg-[#fcce7e] mb-1 p-4 shadow-lg rounded-b-xl border border-gray-400 border-t-0 border-dashed">
+            <div className="bg-[#fcce7e] mb-1 p-4 shadow-lg rounded-b-xl border border-gray-400 border-t-0 border-dashed text-center">
               <h2 className="text-lg font-bold">OBJEKTIF</h2>
               <p>
                 1. Mengembalikan citra Allah dalam diri peserta didik. <br />

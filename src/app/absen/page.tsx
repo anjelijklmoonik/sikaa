@@ -1,4 +1,4 @@
-"use client"; // Add this directive at the top of the file
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -348,13 +348,9 @@ const Absen = () => {
 
         {/* Main Content */}
         <div className="flex-1 ml-64 p-4">
-          <header className="bg-[#fcce7e] p-1 rounded-md">
-            <div className="flex flex-row gap-x-5 items-center">
-              <div>
-                <h1 className="text-lg font-bold text-center">ABSENSI</h1>
-              </div>
-            </div>
-          </header>
+          <div className="bg-[#fcce7e] p-1 mt-1 mb-1 w-auto max-w-max mx-auto shadow-xl rounded-xl border border-gray-400 border-dashed">
+            <h1 className="text-lg font-bold text-center">ABSENSI</h1>
+          </div>
 
           {/* Main Content */}
           <div className="mt-5 bg-white">

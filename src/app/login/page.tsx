@@ -10,7 +10,7 @@ const Login: NextPage = () => {
             src="/logo.svg"
             alt="Logo"
             width={100}
-            height={100}
+            height={150}
             className="mr-4"
           />
           <div className="font-bold font-serif">
@@ -20,25 +20,25 @@ const Login: NextPage = () => {
         </div>
 
         {/* Username Input */}
-        <div className="mb-4">
+        <div className="mb-4 mx-2">
           <input
             type="text"
             placeholder="Username"
-            className="w-full p-2 text-sm text-black border border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
+            className="w-full p-1.5 justify-center text-sm text-black border border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
           />
         </div>
 
         {/* Password Input */}
-        <div className="mb-4">
+        <div className="mb-6 mx-2">
           <input
             type="password"
             placeholder="Password"
-            className="w-full p-2 border text-sm text-black border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
+            className="w-full p-1.5 border text-sm text-black border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
           />
         </div>
 
         {/* Login Button */}
-        <button className="w-full bg-black text-[#fcce7e] py-2 hover:bg-[#f5f5dc] transition duration-300">
+        <button className="w-full bg-black text-[#fcce7e] p-1.5 hover:bg-[#f5f5dc] transition duration-300">
           Login
         </button>
       </div>

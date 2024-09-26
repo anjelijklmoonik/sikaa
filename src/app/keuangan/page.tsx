@@ -166,15 +166,9 @@ const Keuangan: React.FC = () => {
 
         {/* Main Content */}
         <div className="flex-1 ml-64 p-4">
-          <header className="bg-[#fcce7e] p-1 rounded-md">
-            <div className="flex flex-row gap-x-5 items-center">
-              <div>
-                <h1 className="text-lg font-bold text-center">
-                  MODUL KEUANGAN
-                </h1>
-              </div>
-            </div>
-          </header>
+          <div className="bg-[#fcce7e] p-1 mt-1 mb-1 w-auto max-w-max mx-auto shadow-xl rounded-xl border border-gray-400 border-dashed">
+            <h1 className="text-lg font-bold text-center">MODUL KEUANGAN</h1>
+          </div>
 
           {/* NIS, Nama, and Balance Summary */}
           <div className="mt-4 bg-white p-4 rounded-md shadow-md">

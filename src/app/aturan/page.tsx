@@ -1,7 +1,6 @@
-"use client"; // Add this directive at the top of the file
-
 import Link from "next/link";
 import Image from "next/image";
+import { NextPage } from "next";
 import {
   HomeIcon,
   UserIcon,
@@ -12,34 +11,7 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
 
-// Define a type for the school rules
-type Rule = {
-  title: string;
-  description: string;
-};
-
-// Sample data for school rules
-const rules: Rule[] = [
-  {
-    title: "Kedisiplinan",
-    description:
-      "Siswa harus datang tepat waktu dan mematuhi jadwal yang telah ditentukan oleh sekolah.",
-  },
-  {
-    title: "Seragam",
-    description:
-      "Siswa wajib mengenakan seragam sekolah sesuai dengan peraturan yang berlaku pada hari tersebut.",
-  },
-  {
-    title: "Kebersihan",
-    description:
-      "Siswa harus menjaga kebersihan lingkungan sekolah dan membuang sampah pada tempatnya.",
-  },
-  // Add more rules as needed
-];
-
-// React component for the school rules page
-const Aturan: React.FC = () => {
+const Aturan: NextPage = () => {
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       {/* Header */}
@@ -136,29 +108,24 @@ const Aturan: React.FC = () => {
 
         {/* Main Content */}
 
-        <div className="flex-1 p-4 ml-64">
-          <header className="bg-[#fcce7e] p-1 rounded-md">
-            <div className="flex flex-row gap-x-5 items-center">
-              <div>
-                <h1 className="text-lg font-bold text-center">
-                  ATURAN SEKOLAH
-                </h1>
-              </div>
-            </div>
-          </header>
-
-          <main className="mt-6">
-            <div className="mt-5 bg-white p-4">
-              {rules.map((rule, index) => (
-                <div key={index} className="p-3 mb-4 border-b border-gray-300">
-                  <h3 className="text-lg font-bold">
-                    {index + 1}. {rule.title}
-                  </h3>
-                  <p>{rule.description}</p>
-                </div>
-              ))}
-            </div>
-          </main>
+        <div className="flex-1 p-4 ml-64 mt-1">
+          <div className="bg-[#fcce7e] p-1 mt-0 mb-1 w-auto max-w-max mx-auto shadow-xl rounded-xl border border-gray-400 border-dashed">
+            <h1 className="text-lg font-bold text-center">ATURAN</h1>
+          </div>
+          <div className="bg-[#fcce7e] p-4 shadow-lg mt-5">
+            <p>
+              1. <br />
+              2. <br />
+              3. <br />
+              4. <br />
+              5. <br />
+              6. <br />
+              7. <br />
+              8. <br />
+              9. <br />
+              10.
+            </p>
+          </div>
         </div>
       </div>
 

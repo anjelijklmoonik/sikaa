@@ -108,10 +108,10 @@ const Pencapaian: NextPage = () => {
         {/* Content Section */}
         <div className="main-content flex-1 ml-44 top-auto flex justify-center">
           <div className="w-full max-w-4xl">
-            <div className="flex justify-center p-8">
-              <h2 className="text-lg mb-0 bg-[#fcce7e] inline-block p-2 rounded-lg shadow-xl">
-                <strong>PENCAPAIAN SISWA</strong>
-              </h2>
+            <div className="bg-[#fcce7e] p-1 mt-5 mb-1 w-auto max-w-max mx-auto shadow-xl rounded-xl border border-gray-400 border-dashed">
+              <h1 className="text-lg font-bold text-center">
+                PENCAPAIAN SISWA
+              </h1>
             </div>
             <div className="p-4">
               <div className="grid grid-cols-3 gap-4">

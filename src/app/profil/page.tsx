@@ -107,7 +107,7 @@ const Profil: NextPage = () => {
 
         {/* Content */}
         <div className="flex-1 ml-44 p-4 flex justify-center">
-          <div className="bg-[#fcce7e] p-4 max-w-4xl w-full shadow-xl rounded-xl">
+          <div className="bg-[#fcce7e] p-4 max-w-4xl mt-1 w-full shadow-xl rounded-xl">
             <h1 className="text-2xl font-semibold ml-2 mb-4">PROFIL</h1>
             <div className="flex gap-4 items-start">
               {/* Profile Image */}
