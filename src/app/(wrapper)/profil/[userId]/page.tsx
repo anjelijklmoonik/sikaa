@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import getProfil from "@/api/getProfil";
 import { NextPage } from "next";
 import {
   HomeIcon,
@@ -11,7 +15,13 @@ import {
   BanknotesIcon,
 } from "@heroicons/react/24/outline";
 
-const Profil: NextPage = () => {
+const Profil: NextPage = ({ params }) => {
+  console.log(params.userId);
+  const query = useQuery({
+    queryKey: ["profil", params.userId],
+    queryFn: () => getProfil(params.userId),
+  });
+  console.log(query.data);
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       {/* Header */}
