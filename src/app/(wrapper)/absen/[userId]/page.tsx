@@ -12,6 +12,8 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import getAbsen from "@/api/getAbsen";
 
 type AbsensiType = {
   mataPelajaran: string;
@@ -26,7 +28,13 @@ type SemesterType = {
   expanded: boolean;
 };
 
-const Absen = () => {
+const Absen = ({ params }) => {
+  console.log(params.userId);
+  const query = useQuery({
+    queryKey: ["absen", params.userId],
+    queryFn: () => getAbsen(params.userId),
+  });
+  console.log(query.data);
   const [semesterData, setSemesterData] = useState<SemesterType[]>([
     {
       semester: 1,

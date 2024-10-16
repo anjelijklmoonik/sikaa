@@ -11,95 +11,75 @@ import {
   BanknotesIcon,
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import getKeuangan from "@/api/getKeuangan";
 
-type MataPelajaranType = {
-  mataPelajaran: string;
-  nilai: number;
-};
+// Define the type for transaksi
+interface Transaksi {
+  id: number;
+  nis: string;
+  nama: string;
+  tanggal: string;
+  debit: number;
+  kredit: number;
+  detailPembayaran: string;
+}
 
-type SemesterType = {
-  semester: number;
-  mataPelajaran: MataPelajaranType[];
-  expanded: boolean;
-};
+// Example data
+const transaksi: Transaksi[] = [
+  {
+    id: 1,
+    nis: "123456",
+    nama: "John Doe",
+    tanggal: "2024-08-20",
+    debit: 500000,
+    kredit: 0,
+    detailPembayaran: "SPP - Pembayaran Bulan Agustus",
+  },
+  {
+    id: 2,
+    nis: "789012",
+    nama: "Jane Smith",
+    tanggal: "2024-08-21",
+    debit: 500000,
+    kredit: 0,
+    detailPembayaran: "SPP - Pembayaran Bulan Agustus",
+  },
+  {
+    id: 3,
+    nis: "345678",
+    nama: "Alice Johnson",
+    tanggal: "2024-08-22",
+    debit: 0,
+    kredit: 200000,
+    detailPembayaran: "Pembayaran Seragam",
+  },
+  {
+    id: 4,
+    nis: "290504",
+    nama: "Bob Brown",
+    tanggal: "2024-08-31",
+    debit: 0,
+    kredit: 700000,
+    detailPembayaran: "Pembayaran Uang Study Tour",
+  },
+];
 
-const Nilai = () => {
-  const [semesterData, setSemesterData] = useState<SemesterType[]>([
-    {
-      semester: 1,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 85 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 80 },
-        { mataPelajaran: "Fisika", nilai: 89 },
-        { mataPelajaran: "Biologi", nilai: 100 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 2,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 75 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 90 },
-        { mataPelajaran: "Fisika", nilai: 87 },
-        { mataPelajaran: "Biologi", nilai: 95 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 3,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 90 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 95 },
-        { mataPelajaran: "Fisika", nilai: 93 },
-        { mataPelajaran: "Biologi", nilai: 95 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 4,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 78 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 88 },
-        { mataPelajaran: "Fisika", nilai: 85 },
-        { mataPelajaran: "Biologi", nilai: 97 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 5,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 82 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 92 },
-        { mataPelajaran: "Fisika", nilai: 91 },
-        { mataPelajaran: "Biologi", nilai: 96 },
-      ],
-      expanded: false,
-    },
-    {
-      semester: 6,
-      mataPelajaran: [
-        { mataPelajaran: "Matematika", nilai: 86 },
-        { mataPelajaran: "Bahasa Indonesia", nilai: 94 },
-        { mataPelajaran: "Fisika", nilai: 89 },
-        { mataPelajaran: "Biologi", nilai: 98 },
-      ],
-      expanded: false,
-    },
-  ]);
+// Calculate total balance (debit - credit)
+const totalBalance = transaksi.reduce(
+  (acc, trx) => acc + trx.debit - trx.kredit,
+  0
+);
 
-  const handleExpand = (index: number) => {
-    const updatedData = semesterData.map((semester, idx) => {
-      if (index === idx) {
-        return { ...semester, expanded: !semester.expanded };
-      }
-      return semester;
-    });
-    setSemesterData(updatedData);
-  };
-
+const Keuangan: React.FC = ({ params }) => {
+  console.log(params.userId);
+  const query = useQuery({
+    queryKey: ["keuangan", params.userId],
+    queryFn: () => getKeuangan(params.userId),
+  });
+  console.log(query.data);
   return (
-    <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
+    <main className="flex flex-col min-h-screen bg-[#f5f5dc] bg-opacity-20">
       {/* Header */}
       <header className="bg-[#fcce7e] p-4">
         <div className="flex flex-row gap-x-5 items-center">
@@ -195,50 +175,58 @@ const Nilai = () => {
         {/* Main Content */}
         <div className="flex-1 ml-64 p-4">
           <div className="bg-[#fcce7e] p-1 mt-1 mb-1 w-auto max-w-max mx-auto shadow-xl rounded-xl border border-gray-400 border-dashed">
-            <h1 className="text-lg font-bold text-center">
-              NILAI-NILAI SEMESTER
-            </h1>
+            <h1 className="text-lg font-bold text-center">MODUL KEUANGAN</h1>
           </div>
 
-          {/* Main Content */}
-          <div className="mt-5 bg-white">
-            <table className="w-full bg-white border-collapse">
+          {/* NIS, Nama, and Balance Summary */}
+          <div className="mt-4 bg-white p-4 rounded-md shadow-md">
+            <p>
+              <strong>NIS:</strong> {transaksi[0].nis}
+            </p>
+            <p>
+              <strong>Nama:</strong> {transaksi[0].nama}
+            </p>
+            <p>
+              <strong>Total Keuangan:</strong> Rp{" "}
+              {totalBalance.toLocaleString("id-ID")}
+            </p>
+          </div>
+
+          {/* Transaction Table */}
+          <main className="mt-6">
+            <table className="w-full mt-5 bg-white border-collapse">
               <thead>
                 <tr>
-                  <th className="p-3 border-b-2 border-gray-300">Semester</th>
+                  <th className="p-3 border-b-2 border-gray-300">
+                    ID Transaksi
+                  </th>
+                  <th className="p-3 border-b-2 border-gray-300">Tanggal</th>
+                  <th className="p-3 border-b-2 border-gray-300">Debit (Rp)</th>
+                  <th className="p-3 border-b-2 border-gray-300">
+                    Kredit (Rp)
+                  </th>
+                  <th className="p-3 border-b-2 border-gray-300">
+                    Detail Pembayaran
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {semesterData.map((item, index) => (
-                  <>
-                    <tr
-                      key={index}
-                      className="cursor-pointer text-center hover:bg-gray-100"
-                      onClick={() => handleExpand(index)}
-                    >
-                      <td className="p-3 border-b border-gray-300">
-                        Semester {item.semester}
-                      </td>
-                    </tr>
-                    {item.expanded && (
-                      <tr>
-                        <td className="p-3 border-b border-gray-300">
-                          <ul>
-                            {item.mataPelajaran.map((mapel, idx) => (
-                              <li key={idx} className="flex justify-between">
-                                <span>{mapel.mataPelajaran}</span>
-                                <span>{mapel.nilai}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </td>
-                      </tr>
-                    )}
-                  </>
+                {transaksi.map((trx) => (
+                  <tr key={trx.id} className="text-center border-t">
+                    <td className="py-2">{trx.id}</td>
+                    <td className="py-2">{trx.tanggal}</td>
+                    <td className="py-2">
+                      {trx.debit.toLocaleString("id-ID")}
+                    </td>
+                    <td className="py-2">
+                      {trx.kredit.toLocaleString("id-ID")}
+                    </td>
+                    <td className="py-2">{trx.detailPembayaran}</td>
+                  </tr>
                 ))}
               </tbody>
             </table>
-          </div>
+          </main>
         </div>
       </div>
 
@@ -282,4 +270,4 @@ const Nilai = () => {
   );
 };
 
-export default Nilai;
+export default Keuangan;
