@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import getProfil from "@/api/getProfil";
+import getProfil from "@/api/getApi/(wrapper)/getProfil";
 import { NextPage } from "next";
 import {
   HomeIcon,

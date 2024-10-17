@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import getPencapaian from "@/api/getPencapaian";
 import { NextPage } from "next";
 import {
   HomeIcon,
@@ -15,13 +11,7 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
 
-const Pencapaian: NextPage = ({ params }) => {
-  console.log(params.userId);
-  const query = useQuery({
-    queryKey: ["pencapaian", params.userId],
-    queryFn: () => getPencapaian(params.userId),
-  });
-  console.log(query.data);
+const Pencapaian: NextPage = () => {
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       {/* Header */}
@@ -126,20 +116,22 @@ const Pencapaian: NextPage = ({ params }) => {
             <div className="p-4">
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
-                  <p>
-                    <strong>
-                      JUARA I SEMESTER GANJIL <br /> KELAS 10
-                    </strong>
+                  <h2 className="text-lg font-bold">Juara I Semester Ganjil</h2>
+                  <p className="text-sm">Kelas 10 - Matematika</p>
+                  <p className="text-xs text-gray-600">Tanggal: 15 Juli 2024</p>
+                </div>
+                <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
+                  <h2 className="text-lg font-bold">Juara II Lomba Sains</h2>
+                  <p className="text-sm">Kelas 11 - Fisika</p>
+                  <p className="text-xs text-gray-600">
+                    Tanggal: 18 Agustus 2024
                   </p>
                 </div>
                 <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
-                  <p>
-                    <strong>test</strong>
-                  </p>
-                </div>
-                <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
-                  <p>
-                    <strong>-</strong>
+                  <h2 className="text-lg font-bold">Partisipasi Olimpiade</h2>
+                  <p className="text-sm">Kelas 12 - Biologi</p>
+                  <p className="text-xs text-gray-600">
+                    Tanggal: 25 September 2024
                   </p>
                 </div>
               </div>
@@ -148,7 +140,7 @@ const Pencapaian: NextPage = ({ params }) => {
         </div>
       </div>
 
-      {/*Footer*/}
+      {/* Footer */}
       <footer className="bg-gray-300 p-4 mt-auto relative">
         <div className="flex justify-between items-center text-xs">
           <div>

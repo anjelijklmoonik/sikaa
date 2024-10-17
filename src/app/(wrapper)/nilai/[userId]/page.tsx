@@ -13,7 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import getNilai from "@/api/getNilai";
+import getNilai from "@/api/getApi/(wrapper)/getNilai";
 
 type MataPelajaranType = {
   mataPelajaran: string;

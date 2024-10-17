@@ -13,7 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import getAbsen from "@/api/getAbsen";
+import getAbsen from "@/api/getApi/(wrapper)/getAbsen";
 
 type AbsensiType = {
   mataPelajaran: string;
