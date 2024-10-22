@@ -35,6 +35,15 @@ const Absen = ({ params }) => {
     queryFn: () => getAbsen(params.userId),
   });
   console.log(query.data);
+
+  if (query.isLoading) {
+    return <div>Page is Still Loading, Please Wait . . .</div>;
+  }
+
+  if (query.isError) {
+    return <div>{query.error.message}</div>;
+  }
+  const data = query.data;
   const [semesterData, setSemesterData] = useState<SemesterType[]>([
     {
       semester: 1,

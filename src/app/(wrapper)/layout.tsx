@@ -12,7 +12,6 @@ export default function WrapperLayout({
   return (
     <div>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      ;
     </div>
   );
 }

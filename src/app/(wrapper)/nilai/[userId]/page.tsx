@@ -33,6 +33,16 @@ const Nilai = ({ params }) => {
     queryFn: () => getNilai(params.userId),
   });
   console.log(query.data);
+
+  if (query.isLoading) {
+    return <div> Please Wait the Page is Still Loading . . .</div>;
+  }
+
+  if (query.isError) {
+    return <div>{query.error.message}</div>;
+  }
+  const data = query.data;
+
   const [semesterData, setSemesterData] = useState<SemesterType[]>([
     {
       semester: 1,

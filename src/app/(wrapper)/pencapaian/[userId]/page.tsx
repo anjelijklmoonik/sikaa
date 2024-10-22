@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
+import { useQuery } from "@tanstack/react-query";
+import getPencapaian from "@/api/getApi/(wrapper)/getPencapaian";
 import {
   HomeIcon,
   UserIcon,
@@ -11,7 +15,24 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
 
-const Pencapaian: NextPage = () => {
+const Pencapaian: NextPage = ({ params }) => {
+  console.log(params.userId);
+  const query = useQuery({
+    queryKey: ["pencapaian", params.userId],
+    queryFn: () => getPencapaian(params.userId),
+  });
+  console.log(query.data);
+
+  if (query.isLoading) {
+    return <div>Still Loading . . .</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  const data = query.data;
+
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       {/* Header */}
@@ -115,25 +136,17 @@ const Pencapaian: NextPage = () => {
             </div>
             <div className="p-4">
               <div className="grid grid-cols-3 gap-4">
-                <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
-                  <h2 className="text-lg font-bold">Juara I Semester Ganjil</h2>
-                  <p className="text-sm">Kelas 10 - Matematika</p>
-                  <p className="text-xs text-gray-600">Tanggal: 15 Juli 2024</p>
-                </div>
-                <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
-                  <h2 className="text-lg font-bold">Juara II Lomba Sains</h2>
-                  <p className="text-sm">Kelas 11 - Fisika</p>
-                  <p className="text-xs text-gray-600">
-                    Tanggal: 18 Agustus 2024
-                  </p>
-                </div>
-                <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
-                  <h2 className="text-lg font-bold">Partisipasi Olimpiade</h2>
-                  <p className="text-sm">Kelas 12 - Biologi</p>
-                  <p className="text-xs text-gray-600">
-                    Tanggal: 25 September 2024
-                  </p>
-                </div>
+                {data ? (
+                  <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
+                    <h2 className="text-lg font-bold">{data.judul}</h2>
+                    <p className="text-sm">{data.deskripsi}</p>
+                    <p className="text-xs text-gray-600">
+                      {new Date(data.tanggal).toLocaleDateString()}
+                    </p>
+                  </div>
+                ) : (
+                  <div>Tidak ada pencapaian yang ditemukan</div>
+                )}
               </div>
             </div>
           </div>

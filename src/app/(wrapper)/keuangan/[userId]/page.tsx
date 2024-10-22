@@ -93,6 +93,16 @@ const Keuangan: React.FC = ({ params }) => {
     queryFn: () => getKeuangan(params.userId),
   });
   console.log(query.data);
+
+  if (query.isLoading) {
+    return <div>Page is Still Loading . . .</div>;
+  }
+
+  if (query.isError) {
+    return <div>{query.error.message}</div>;
+  }
+
+  const data = query.data;
   return (
     <main className="flex flex-col min-h-screen bg-[#f5f5dc] bg-opacity-20">
       {/* Header */}
