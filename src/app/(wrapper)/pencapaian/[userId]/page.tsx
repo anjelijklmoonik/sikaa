@@ -15,11 +15,20 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
 
+interface Capaian {
+  id: number;
+  judul: string;
+  deskripsi: string;
+  tanggal: Date;
+  studentProfilId: number;
+}
+
 const Pencapaian: NextPage = ({ params }) => {
+  const studentId = params.userId;
   console.log(params.userId);
-  const query = useQuery({
-    queryKey: ["pencapaian", params.userId],
-    queryFn: () => getPencapaian(params.userId),
+  const query = useQuery<Capaian[]>({
+    queryKey: ["pencapaian", studentId],
+    queryFn: () => getPencapaian(studentId),
   });
   console.log(query.data);
 
@@ -136,14 +145,19 @@ const Pencapaian: NextPage = ({ params }) => {
             </div>
             <div className="p-4">
               <div className="grid grid-cols-3 gap-4">
-                {data ? (
-                  <div className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center">
-                    <h2 className="text-lg font-bold">{data.judul}</h2>
-                    <p className="text-sm">{data.deskripsi}</p>
-                    <p className="text-xs text-gray-600">
-                      {new Date(data.tanggal).toLocaleDateString()}
-                    </p>
-                  </div>
+                {data && data.length > 0 ? ( // Memeriksa apakah data ada dan panjangnya lebih dari 0
+                  data.map((item) => (
+                    <div
+                      key={item.id}
+                      className="bg-[#fcce7e] p-4 rounded-lg shadow-lg text-center"
+                    >
+                      <h2 className="text-lg font-bold">{item.judul}</h2>
+                      <p className="text-sm">{item.deskripsi}</p>
+                      <p className="text-xs text-gray-600">
+                        {new Date(item.tanggal).toLocaleDateString()}
+                      </p>
+                    </div>
+                  ))
                 ) : (
                   <div>Tidak ada pencapaian yang ditemukan</div>
                 )}

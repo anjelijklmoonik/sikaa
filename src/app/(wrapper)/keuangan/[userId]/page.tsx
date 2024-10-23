@@ -103,6 +103,7 @@ const Keuangan: React.FC = ({ params }) => {
   }
 
   const data = query.data;
+  
   return (
     <main className="flex flex-col min-h-screen bg-[#f5f5dc] bg-opacity-20">
       {/* Header */}
