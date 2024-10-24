@@ -1,15 +1,17 @@
-// export const postPencapaian = async (data) => {
-//     const response = await fetch('http://localhost:3001/pencapaian/${studentId}', {
-//         method: 'POST', 
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(data),
-//     });
+const addPencapaian = async (newPencapaian: { judul: string; deskripsi: string; tanggal: string; studentProfilId: number }) => {
+    const respond = await fetch('http://localhost:3001/pencapaian', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(newPencapaian),
+    });
 
-// if (!response.ok) {
-//     throw new Error("Gagal membuat pencapaian baru");
-// }
+    if (!respond.ok) {
+        throw new Error("Gagal menambahkan pencapaian baru");
+    };
 
-// return response.json();
-// };
+    const data = await respond.json();
+    console.log("Data Pencapaian yang Berhasil ditambahkan:", data);
+    return data;
+}
+
+export default addPencapaian;

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import getPencapaian from "@/api/getApi/(wrapper)/getPencapaian";
 import {
   HomeIcon,
@@ -14,6 +14,8 @@ import {
   BanknotesIcon,
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
+import addPencapaian from "@/api/postApi/(wrapper)/postPencapaian";
+import React from "react";
 
 interface Capaian {
   id: number;
@@ -24,6 +26,8 @@ interface Capaian {
 }
 
 const Pencapaian: NextPage = ({ params }) => {
+  const queryClient = useQueryClient;
+
   const studentId = params.userId;
   console.log(params.userId);
   const query = useQuery<Capaian[]>({
@@ -37,10 +41,10 @@ const Pencapaian: NextPage = ({ params }) => {
   }
 
   if (query.isError) {
-    return <div>Error: {query.error.message}</div>;
+    return <div>{query.error.message}</div>;
   }
 
-  const data = query.data;
+  const data = query.data || [];
 
   return (
     <main className="relative min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
@@ -159,7 +163,10 @@ const Pencapaian: NextPage = ({ params }) => {
                     </div>
                   ))
                 ) : (
-                  <div>Tidak ada pencapaian yang ditemukan</div>
+                  <div className="text-center text-sm bg-[#fcce7e] p-2 w-auto mt-auto mb-auto shadow-lg rounded-lg">
+                    Belum terlihat Pencapaian.. <br />
+                    Tetap Semangat dan Jangan Menyerah!"
+                  </div>
                 )}
               </div>
             </div>

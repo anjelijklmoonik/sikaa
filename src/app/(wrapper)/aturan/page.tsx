@@ -108,7 +108,7 @@ const Aturan: NextPage = () => {
 
         {/* Main Content */}
 
-        <div className="flex-1 p-4 ml-64 mt-1">
+        <div className="flex-1 p-4 ml-60 mt-1">
           <div className="bg-[#fcce7e] p-1 mt-0 mb-1 w-auto max-w-max mx-auto shadow-xl rounded-xl border border-gray-400 border-dashed">
             <h1 className="text-lg font-bold text-center">ATURAN</h1>
           </div>
