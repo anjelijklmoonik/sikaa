@@ -2,18 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import {
-  HomeIcon,
-  UserIcon,
-  ChartBarIcon,
-  TrophyIcon,
-  CalendarIcon,
-  BanknotesIcon,
-  BookOpenIcon,
-} from "@heroicons/react/24/outline";
 
 const AdminDashboard = () => {
+  const [userId, setUserId] = useState(null);
   const router = useRouter();
 
   // State variables
@@ -26,7 +17,15 @@ const AdminDashboard = () => {
   const [students, setStudents] = useState<string[]>([]);
   const [newStudent, setNewStudent] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
-  const [financeData, setFinanceData] = useState({
+  const [financeData, setFinanceData] = useState<{
+    date: string;
+    reference: string;
+    journalNumber: string;
+    description: string;
+    debit: string;
+    credit: string;
+    runningTotal: number;
+  }>({
     date: "",
     reference: "",
     journalNumber: "",
@@ -70,7 +69,7 @@ const AdminDashboard = () => {
     setSelectedClassType(classType);
     setSelectedClass(null);
     setStudents([]);
-    setBackNavigationStack(["classType"]);
+    setBackNavigationStack(["classType"]); // Push class type to back stack
   };
 
   const handleAddClass = () => {
@@ -136,7 +135,7 @@ const AdminDashboard = () => {
       financeData,
     });
     alert("Data keuangan tersimpan!");
-    router.push("/keuangan/1");
+    router.push(`/keuangan/${userId}`); // Navigate to the finance page
     setFinanceData({
       date: "",
       reference: "",
@@ -157,8 +156,8 @@ const AdminDashboard = () => {
       setSelectedClass(null);
     } else if (lastPage === "classType") {
       setSelectedClassType(null);
-      setClasses([]);
-      setStudents([]);
+      setClasses([]); // Reset classes when navigating back to class type selection
+      setStudents([]); // Reset students as well
     }
     setBackNavigationStack([...backNavigationStack]);
   };
@@ -175,76 +174,11 @@ const AdminDashboard = () => {
 
   return (
     <main className="flex flex-row min-h-screen bg-[#f5f5dc] bg-opacity-20">
-      {/* Sidebar */}
-      <div className="sidebar fixed bg-[#fcce7e] w-auto h-full p-3 shadow-2xl">
-        <ul className="flex flex-col gap-y-4">
-          <li className="flex items-center">
-            <HomeIcon className="h-6 w-6 text-black mr-2" />
-            <Link href="/home" className="block p-2 rounded hover:bg-[#f9b75e]">
-              Halaman Utama
-            </Link>
-          </li>
-          <li className="flex items-center">
-            <UserIcon className="h-6 w-6 text-black mr-2" />
-            <Link
-              href="/profil"
-              className="block p-2 rounded hover:bg-[#f9b75e]"
-            >
-              Profil
-            </Link>
-          </li>
-          <li className="flex items-center">
-            <BanknotesIcon className="h-6 w-6 text-black mr-2" />
-            <Link
-              href="/keuangan"
-              className="block p-2 rounded hover:bg-[#f9b75e]"
-            >
-              Keuangan
-            </Link>
-          </li>
-          <li className="flex items-center">
-            <ChartBarIcon className="h-6 w-6 text-black mr-2" />
-            <Link
-              href="/nilai"
-              className="block p-2 rounded hover:bg-[#f9b75e]"
-            >
-              Nilai
-            </Link>
-          </li>
-          <li className="flex items-center">
-            <TrophyIcon className="h-6 w-6 text-black mr-2" />
-            <Link
-              href="/pencapaian"
-              className="block p-2 rounded hover:bg-[#f9b75e]"
-            >
-              Pencapaian
-            </Link>
-          </li>
-          <li className="flex items-center">
-            <CalendarIcon className="h-6 w-6 text-black mr-2" />
-            <Link
-              href="/jadwal"
-              className="block p-2 rounded hover:bg-[#f9b75e]"
-            >
-              Jadwal
-            </Link>
-          </li>
-          <li className="flex items-center">
-            <BookOpenIcon className="h-6 w-6 text-black mr-2" />
-            <Link
-              href="/materi"
-              className="block p-2 rounded hover:bg-[#f9b75e]"
-            >
-              Materi
-            </Link>
-          </li>
-        </ul>
-      </div>
-
       {/* Main Content */}
       <div className="ml-64 p-8 w-full">
         <h1 className="text-3xl font-bold mb-6">Dashboard Admin</h1>
 
+        {/* Class Type Selection */}
         {!selectedClassType && (
           <div className="flex flex-col mb-4">
             <h2 className="text-2xl font-bold mb-4">Pilih Tipe Kelas</h2>
@@ -263,6 +197,7 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        {/* Class Management */}
         {selectedClassType && !selectedClass && (
           <div>
             <h2 className="text-2xl font-bold mb-4">
@@ -277,40 +212,39 @@ const AdminDashboard = () => {
                 >
                   <span>{cls}</span>
                   <button
+                    className="text-red-500"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleRemoveClass(cls);
                     }}
-                    className="text-red-500 hover:text-red-700"
                   >
                     Hapus
                   </button>
                 </div>
               ))}
             </div>
-            <div className="flex">
-              <input
-                type="text"
-                value={newClass}
-                onChange={(e) => setNewClass(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Tambah Kelas Baru"
-                className="border rounded px-2 py-1 w-full mr-2"
-              />
-              <button
-                onClick={handleAddClass}
-                className="bg-[#f9b75e] text-white px-4 py-1 rounded"
-              >
-                Tambah
-              </button>
-            </div>
+            <input
+              type="text"
+              value={newClass}
+              onChange={(e) => setNewClass(e.target.value)}
+              onKeyDown={handleKeyPress}
+              placeholder="Tambahkan Kelas"
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
+            <button
+              className="bg-[#f9b75e] text-white px-4 py-2 rounded"
+              onClick={handleAddClass}
+            >
+              Tambahkan Kelas
+            </button>
           </div>
         )}
 
+        {/* Student Management */}
         {selectedClass && !selectedStudent && (
           <div>
             <h2 className="text-2xl font-bold mb-4">
-              Daftar Siswa Kelas {selectedClass}
+              Daftar Siswa ({selectedClass})
             </h2>
             <div className="flex flex-col mb-4">
               {students.map((student) => (
@@ -321,125 +255,104 @@ const AdminDashboard = () => {
                 >
                   <span>{student}</span>
                   <button
+                    className="text-red-500"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleRemoveStudent(student);
                     }}
-                    className="text-red-500 hover:text-red-700"
                   >
                     Hapus
                   </button>
                 </div>
               ))}
             </div>
-            <div className="flex">
-              <input
-                type="text"
-                value={newStudent}
-                onChange={(e) => setNewStudent(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Tambah Siswa Baru"
-                className="border rounded px-2 py-1 w-full mr-2"
-              />
-              <button
-                onClick={handleAddStudent}
-                className="bg-[#f9b75e] text-white px-4 py-1 rounded"
-              >
-                Tambah
-              </button>
-            </div>
-          </div>
-        )}
-
-        {selectedStudent && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">
-              Form Keuangan Siswa: {selectedStudent}
-            </h2>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <label>Tanggal</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={financeData.date}
-                  onChange={handleInputChange}
-                  className="border rounded px-2 py-1 w-full"
-                />
-              </div>
-              <div>
-                <label>Referensi</label>
-                <input
-                  type="text"
-                  name="reference"
-                  value={financeData.reference}
-                  onChange={handleInputChange}
-                  className="border rounded px-2 py-1 w-full"
-                />
-              </div>
-              <div>
-                <label>Nomor Jurnal</label>
-                <input
-                  type="text"
-                  name="journalNumber"
-                  value={financeData.journalNumber}
-                  onChange={handleInputChange}
-                  className="border rounded px-2 py-1 w-full"
-                />
-              </div>
-              <div>
-                <label>Deskripsi</label>
-                <input
-                  type="text"
-                  name="description"
-                  value={financeData.description}
-                  onChange={handleInputChange}
-                  className="border rounded px-2 py-1 w-full"
-                />
-              </div>
-              <div>
-                <label>Debit</label>
-                <input
-                  type="number"
-                  name="debit"
-                  value={financeData.debit}
-                  onChange={handleInputChange}
-                  className="border rounded px-2 py-1 w-full"
-                />
-              </div>
-              <div>
-                <label>Kredit</label>
-                <input
-                  type="number"
-                  name="credit"
-                  value={financeData.credit}
-                  onChange={handleInputChange}
-                  className="border rounded px-2 py-1 w-full"
-                />
-              </div>
-            </div>
-            <div className="mb-4">
-              <label>Total Berjalan</label>
-              <input
-                type="number"
-                value={financeData.runningTotal}
-                readOnly
-                className="border rounded px-2 py-1 w-full bg-gray-100"
-              />
-            </div>
+            <input
+              type="text"
+              value={newStudent}
+              onChange={(e) => setNewStudent(e.target.value)}
+              onKeyDown={handleKeyPress}
+              placeholder="Tambahkan Siswa"
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
             <button
-              onClick={handleSaveFinance}
               className="bg-[#f9b75e] text-white px-4 py-2 rounded"
+              onClick={handleAddStudent}
             >
-              Simpan Keuangan
+              Tambahkan Siswa
             </button>
           </div>
         )}
 
+        {/* Finance Entry Form */}
+        {selectedStudent && (
+          <div>
+            <h2 className="text-2xl font-bold mb-4">
+              Entri Keuangan untuk {selectedStudent}
+            </h2>
+            <input
+              type="date"
+              name="date"
+              value={financeData.date}
+              onChange={handleInputChange}
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
+            <input
+              type="text"
+              name="reference"
+              value={financeData.reference}
+              onChange={handleInputChange}
+              placeholder="Referensi"
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
+            <input
+              type="text"
+              name="journalNumber"
+              value={financeData.journalNumber}
+              onChange={handleInputChange}
+              placeholder="Nomor Jurnal"
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
+            <input
+              type="text"
+              name="description"
+              value={financeData.description}
+              onChange={handleInputChange}
+              placeholder="Deskripsi"
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
+            <input
+              type="number"
+              name="debit"
+              value={financeData.debit}
+              onChange={handleInputChange}
+              placeholder="Debit"
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
+            <input
+              type="number"
+              name="credit"
+              value={financeData.credit}
+              onChange={handleInputChange}
+              placeholder="Kredit"
+              className="border rounded px-2 py-1 mb-2 w-full"
+            />
+            <div className="border rounded px-2 py-1 mb-2 w-full">
+              Total Berjalan: {financeData.runningTotal}
+            </div>
+            <button
+              className="bg-[#f9b75e] text-white px-4 py-2 rounded"
+              onClick={handleSaveFinance}
+            >
+              Simpan Entri
+            </button>
+          </div>
+        )}
+
+        {/* Back Navigation Button */}
         {backNavigationStack.length > 0 && (
           <button
+            className="bg-red-500 text-white px-4 py-2 rounded fixed bottom-8 left-8"
             onClick={handleBackNavigation}
-            className="mt-4 bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
           >
             Kembali
           </button>
