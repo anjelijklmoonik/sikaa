@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const params = useParams();
+  const userId = params.userId;
   return (
     <html lang="en" className="h-full bg-gray-100">
       <body className="flex flex-col min-h-screen">
@@ -61,7 +64,7 @@ export default function RootLayout({
                 <li className="flex items-center">
                   <UserIcon className="h-6 w-6 text-black mr-2" />
                   <Link
-                    href="/profil"
+                    href={`/profil/${userId}`}
                     className="block p-2 rounded hover:bg-[#f9b75e]"
                   >
                     Profil
@@ -70,7 +73,7 @@ export default function RootLayout({
                 <li className="flex items-center">
                   <BanknotesIcon className="h-6 w-6 text-black mr-2" />
                   <Link
-                    href="/keuangan"
+                    href={`/keuangan/${userId}`}
                     className="block p-2 rounded hover:bg-[#f9b75e]"
                   >
                     Keuangan
@@ -79,7 +82,7 @@ export default function RootLayout({
                 <li className="flex items-center">
                   <ChartBarIcon className="h-6 w-6 text-black mr-2" />
                   <Link
-                    href="/nilai"
+                    href={`/nilai/${userId}`}
                     className="block p-2 rounded hover:bg-[#f9b75e]"
                   >
                     Nilai
@@ -88,7 +91,7 @@ export default function RootLayout({
                 <li className="flex items-center">
                   <TrophyIcon className="h-6 w-6 text-black mr-2" />
                   <Link
-                    href="/pencapaian"
+                    href={`/pencapaian/${userId}`}
                     className="block p-2 rounded hover:bg-[#f9b75e]"
                   >
                     Pencapaian
@@ -97,7 +100,7 @@ export default function RootLayout({
                 <li className="flex items-center">
                   <CalendarIcon className="h-6 w-6 text-black mr-2" />
                   <Link
-                    href="/absen"
+                    href={`/absen/${userId}`}
                     className="block p-2 rounded hover:bg-[#f9b75e]"
                   >
                     Absen
@@ -121,7 +124,7 @@ export default function RootLayout({
             </main>
           </div>
           {/*Footer*/}
-          <footer className="bg-gray-300 p-4 mt-auto relative">
+          <footer className="bg-gray-300 p-4 mb-auto relative">
             <div className="flex justify-between items-center text-xs">
               <div>
                 <a

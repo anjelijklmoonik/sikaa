@@ -1,7 +1,8 @@
-"use client"; // Add this directive at the top of the file
+"use client";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import getKeuangan from "@/api/getApi/(wrapper)/getKeuangan";
+import { NextPage } from "next";
 
 interface Transaksi {
   id: number;
@@ -15,30 +16,32 @@ interface Transaksi {
   total: number;
 }
 
-const Keuangan: React.FC = ({ params }) => {
-  const queryClient = useQueryClient;
+const Keuangan: NextPage<{ params: { userId: string } }> = ({ params }) => {
+  const queryClient = useQueryClient();
 
   const studentId = params.userId;
-  console.log(params.userId);
+  console.log(studentId);
+
+  // Fetch financial data
   const query = useQuery<Transaksi[]>({
     queryKey: ["keuangan", studentId],
-    queryFn: () => getKeuangan(studentId),
+    queryFn: async () => {
+      try {
+        return await getKeuangan(parseInt(studentId, 10));
+      } catch {
+        return []; // Jika gagal fetch, kembalikan array kosong
+      }
+    },
+    initialData: [], // Tetapkan data awal sebagai array kosong
   });
-  console.log(query.data);
 
   if (query.isLoading) {
     return <div>Still Loading . . .</div>;
   }
 
-  if (query.isError) {
-    return <div>{query.error.message}</div>;
-  }
-
-  const data = query.data || [];
-
-  const totalOverall = Array.isArray(data)
-    ? data.reduce((acc, trx) => acc + trx.total, 0)
-    : 0;
+  // Data yang sudah di-*fetch*
+  const data = Array.isArray(query.data) ? query.data : [];
+  const totalOverall = data.reduce((acc, trx) => acc + trx.total, 0);
 
   return (
     <main className="flex flex-col min-h-screen bg-[#f5f5dc] bg-opacity-20">
@@ -52,39 +55,57 @@ const Keuangan: React.FC = ({ params }) => {
 
           {/* Transaction Table */}
           <main className="mt-6">
-            <h2>Total Keseluruhan: {totalOverall.toLocaleString("id-ID")}</h2>
-            <table className="w-full mt-5 bg-white border-collapse">
-              <thead>
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-semibold">
+                Total Keseluruhan:{" "}
+                <span className="text-green-600">
+                  {totalOverall.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
+                </span>
+              </h2>
+            </div>
+            <table className="w-full mt-5 bg-white border-collapse shadow-lg rounded-lg overflow-hidden">
+              <thead className="bg-gray-200">
                 <tr>
-                  <th>Tanggal</th>
-                  <th>Referensi</th>
-                  <th>No Jurnal</th>
-                  <th>Deskripsi</th>
-                  <th>Debit (Rp)</th>
-                  <th>Kredit (Rp)</th>
-                  <th>Total (Rp)</th>
+                  <th className="p-3 border-b">Tanggal</th>
+                  <th className="p-3 border-b">Referensi</th>
+                  <th className="p-3 border-b">No Jurnal</th>
+                  <th className="p-3 border-b">Deskripsi</th>
+                  <th className="p-3 border-b">Debit (Rp)</th>
+                  <th className="p-3 border-b">Kredit (Rp)</th>
+                  <th className="p-3 border-b">Total (Rp)</th>
                 </tr>
               </thead>
               <tbody>
                 {data.length > 0 ? (
                   data.map((trx) => (
-                    <tr key={trx.id}>
-                      <td>
+                    <tr key={trx.id} className="hover:bg-gray-100 text-center">
+                      <td className="p-3 border-b">
                         {new Date(trx.lastTransDate).toLocaleDateString(
                           "id-ID"
                         )}
                       </td>
-                      <td>{trx.referensi}</td>
-                      <td>{trx.noJurnal}</td>
-                      <td>{trx.deskripsi}</td>
-                      <td>{trx.debit.toLocaleString("id-ID")}</td>
-                      <td>{trx.kredit.toLocaleString("id-ID")}</td>
-                      <td>{trx.total.toLocaleString("id-ID")}</td>{" "}
+                      <td className="p-3 border-b">{trx.referensi}</td>
+                      <td className="p-3 border-b">{trx.noJurnal}</td>
+                      <td className="p-3 border-b">{trx.deskripsi}</td>
+                      <td className="p-3 border-b">
+                        {trx.debit.toLocaleString("id-ID")}
+                      </td>
+                      <td className="p-3 border-b">
+                        {trx.kredit.toLocaleString("id-ID")}
+                      </td>
+                      <td className="p-3 border-b">
+                        {trx.total.toLocaleString("id-ID")}
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7}>Tidak ada transaksi</td>
+                    <td colSpan={7} className="p-3 text-center text-gray-500">
+                      Tidak ada transaksi
+                    </td>
                   </tr>
                 )}
               </tbody>
