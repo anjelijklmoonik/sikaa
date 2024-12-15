@@ -3,18 +3,19 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import getNilai from "@/api/getApi/(wrapper)/getNilai";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 type MataPelajaranType = {
   mataPelajaran: string;
   nilai: number;
 };
 
-const Nilai = ({ params }) => {
-  // Validasi params.userId untuk mencegah error saat parameter kosong
-  if (!params?.userId) {
-    return <div>User ID tidak valid</div>;
-  }
-
+const Nilai = ({ params }: { params: { userId: string } }) => {
   // Query untuk mendapatkan data nilai
   const query = useQuery({
     queryKey: ["nilai", params.userId],
@@ -32,8 +33,6 @@ const Nilai = ({ params }) => {
   ];
 
   // Data mata pelajaran dari API atau default
-  const mataPelajaranData: MataPelajaranType[] =
-    query.data?.mataPelajaran || defaultMataPelajaranData;
 
   const toggleExpand = () => {
     setExpanded((prev) => !prev); // Toggle antara expanded dan tidak expanded
@@ -52,13 +51,13 @@ const Nilai = ({ params }) => {
   return (
     <main className="min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       <div className="flex flex-1">
-        <div className="flex-1 ml-64 p-4">
+        <div className="flex-1 p-4">
           <div className="bg-[#fcce7e] p-1 mt-1 mb-1 w-auto max-w-max mx-auto shadow-xl rounded-xl border border-gray-400 border-dashed">
             <h1 className="text-lg font-bold text-center">NILAI</h1>
           </div>
 
-          <div className="mt-5">
-            {/* Menampilkan hanya satu semester dengan expand */}
+          {/* <div className="mt-5">
+            Menampilkan hanya satu semester dengan expand
             <div className="mb-4">
               <div
                 className="cursor-pointer text-center bg-[#fcce7e] p-3 rounded-lg shadow-md"
@@ -85,7 +84,26 @@ const Nilai = ({ params }) => {
                 </div>
               )}
             </div>
-          </div>
+          </div> */}
+
+          <Accordion type="single" collapsible>
+            {query.data?.data &&
+              Object.entries(query.data.data).map(([key, value]) => (
+                <AccordionItem value={key} key={key}>
+                  <AccordionTrigger>{key}</AccordionTrigger>
+                  <AccordionContent>
+                    <ul>
+                      {value.map((item, idx) => (
+                        <li key={idx} className="flex justify-between">
+                          <span>{item.pelajaran}</span>
+                          <span>{item.skor}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+          </Accordion>
         </div>
       </div>
     </main>

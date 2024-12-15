@@ -1,6 +1,8 @@
-import { NextPage } from "next";
+import { signIn } from "@/lib/auth";
+import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
-const Login: NextPage = () => {
+const Login = () => {
   return (
     <main className="min-h-screen flex justify-center items-center bg-[#f5f5dc]">
       {/* Login Container */}
@@ -20,27 +22,52 @@ const Login: NextPage = () => {
         </div>
 
         {/* Username Input */}
-        <div className="mb-4 mx-2">
-          <input
-            type="text"
-            placeholder="Username"
-            className="w-full p-1.5 justify-center text-sm text-black border border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
-          />
-        </div>
+        <form
+          action={async (formData) => {
+            "use server";
+            try {
+              await signIn("credentials", {
+                username: formData.get("username"),
+                password: formData.get("password"),
+                redirectTo: "/",
+              });
+            } catch (error) {
+              if (error instanceof AuthError) {
+                return redirect(`/login?error=${error.type}`);
+              }
+              throw error;
+            }
+          }}
+        >
+          <div className="mb-4 mx-2">
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="Username"
+              className="w-full p-1.5 justify-center text-sm text-black border border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
+            />
+          </div>
 
-        {/* Password Input */}
-        <div className="mb-6 mx-2">
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-1.5 border text-sm text-black border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
-          />
-        </div>
+          {/* Password Input */}
+          <div className="mb-6 mx-2">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              className="w-full p-1.5 border text-sm text-black border-black focus:outline-none focus:ring-2 focus:ring-[#f5f5dc]"
+            />
+          </div>
 
-        {/* Login Button */}
-        <button className="w-full bg-black text-[#fcce7e] p-1.5 hover:bg-[#f5f5dc] transition duration-300">
-          Login
-        </button>
+          {/* Login Button */}
+          <button
+            type="submit"
+            className="w-full bg-black text-[#fcce7e] p-1.5 hover:bg-[#f5f5dc] transition duration-300"
+          >
+            Login
+          </button>
+        </form>
       </div>
 
       {/* Footer */}

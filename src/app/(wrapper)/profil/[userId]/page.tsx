@@ -63,7 +63,7 @@ const Profil: NextPage = ({ params }) => {
                   </div>
                   <div className="flex items-center bg-white bg-opacity-10 p-2 rounded">
                     <div className="w-1/3 font-bold">Jurusan</div>
-                    <div className="flex-1">{data.jurusan}</div>
+                    <div className="flex-1">{data.Jurusan.nama}</div>
                   </div>
                   <div className="flex items-center bg-white bg-opacity-10 p-2 rounded">
                     <div className="w-1/3 font-bold">Alamat</div>

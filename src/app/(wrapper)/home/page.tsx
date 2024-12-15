@@ -1,4 +1,11 @@
+"use client";
+import { useSession } from "next-auth/react";
+
 export default function Home() {
+  const { data: session } = useSession();
+
+  console.log(session);
+
   return (
     <main className="min-h-screen bg-[#f5f5dc] bg-opacity-20 flex flex-col">
       <div className="flex flex-1"></div>
