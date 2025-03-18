@@ -17,7 +17,8 @@ const addProfil = async (newProfil: {
     noTelpIbu: string; 
     namaWali: string; 
     noTelpWali: string; 
-    academicYear: string;}) => {
+    academicYear: string
+    studentId: string;}) => {
         const respond = await fetch('http://localhost:3001/keuangan', {
             method: 'POST',
             headers: {'Content-Type': 'application/json',},

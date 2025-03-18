@@ -1,366 +1,314 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, ChangeEvent, MouseEvent } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import addProfil from "@/api/postApi/(wrapper)/postProfil";
+import addAcademicYear from "@/api/postApi/(wrapper)/postAcademicYear";
+import addClass from "@/api/postApi/(wrapper)/postKelas";
+import getProfil from "@/api/getApi/(wrapper)/getProfil";
+import getAcademicYear from "@/api/getApi/(wrapper)/getAcademicYear";
+import getKelas from "@/api/getApi/(wrapper)/getKelas";
 
-const AdminDashboard = () => {
-  const [userId, setUserId] = useState(null);
-  const router = useRouter();
+interface Student {
+  studentId: string;
+  foto: string;
+  nama: string;
+  noIndukSiswa: string;
+  sekolah: string;
+  kelas: string;
+  jurusan: string;
+  alamat: string;
+  ttl: string;
+  agama: string;
+  jenisKelamin: string;
+  noTelp: string;
+  email: string;
+  namaAyah: string;
+  namaIbu: string;
+  noTelpAyah: string;
+  noTelpIbu: string;
+  namaWali: string;
+  noTelpWali: string;
+  academicYear: string;
+}
 
-  // State variables
+const AdminProfilPage = () => {
+  const queryClient = useQueryClient();
+
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
-  const [years, setYears] = useState<string[]>(["2023", "2024", "2025"]);
-  const [newYear, setNewYear] = useState("");
-  const [classes, setClasses] = useState<string[]>([]);
-  const [newClass, setNewClass] = useState("");
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
-  const [students, setStudents] = useState<string[]>([]);
-  const [newStudent, setNewStudent] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
-  const [backNavigationStack, setBackNavigationStack] = useState<string[]>([]);
 
-  // Student profile
-  const [studentProfile, setStudentProfile] = useState({
-    name: "",
-    studentID: "",
-    school: "",
-    className: "",
-    major: "",
-    dob: "",
-    religion: "",
-    gender: "",
-    address: "",
-    phone: "",
+  const [studentProfile, setStudentProfile] = useState<Student>({
+    foto: "",
+    nama: "",
+    noIndukSiswa: "",
+    sekolah: "",
+    kelas: "",
+    jurusan: "",
+    alamat: "",
+    ttl: "",
+    noTelp: "",
     email: "",
-    parentInfo: {
-      fatherName: "",
-      motherName: "",
-      guardianName: "",
-      fatherPhone: "",
-      motherPhone: "",
-      guardianPhone: "",
+    namaAyah: "",
+    namaIbu: "",
+    noTelpAyah: "",
+    noTelpIbu: "",
+    namaWali: "",
+    noTelpWali: "",
+    jenisKelamin: "",
+    agama: "",
+    academicYear: "",
+    studentId: "",
+  });
+
+  const [newAcademicYear, setNewAcademicYear] = useState<string>("");
+  const [newClassName, setNewClassName] = useState<string>("");
+
+  const { data: years } = useQuery({
+    queryKey: ["academicYear"], // This is the query key used to cache the results
+    queryFn: async ({ queryKey }) => {
+      // The context provides the queryKey, signal, etc.
+      const response = await getAcademicYear(students);
+      return response; // Make sure getAcademicYear returns a valid response
     },
   });
 
-  // Load classes and students from localStorage
-  useEffect(() => {
-    if (selectedYear) {
-      const storedClasses = JSON.parse(
-        localStorage.getItem(`${selectedYear}_classes`) || "[]"
-      );
-      const storedStudents = JSON.parse(
-        localStorage.getItem(`${selectedYear}_students`) || "[]"
-      );
-      setClasses(storedClasses);
-      setStudents(storedStudents);
-    }
-  }, [selectedYear]);
+  // Fetch classes based on the selected year
+  const { data: classes } = useQuery({
+    queryKey: ["classes", selectedYear],
+    queryFn: () => getKelas(selectedYear!),
+    enabled: !!selectedYear,
+  });
 
-  // Save to localStorage when changes occur
-  useEffect(() => {
-    if (selectedYear) {
-      localStorage.setItem(`${selectedYear}_classes`, JSON.stringify(classes));
-      localStorage.setItem(
-        `${selectedYear}_students`,
-        JSON.stringify(students)
-      );
-    }
-  }, [classes, students, selectedYear]);
+  // Assuming getProfil can accept the query context correctly
+  const { data: students } = useQuery({
+    queryKey: ["students", selectedClass],
+    queryFn: ({ queryKey }) => getProfil(queryKey[1] as string), // Accessing class from queryKey
+    enabled: !!selectedClass,
+  });
 
-  // Handlers
-  const handleYearSelect = (year: string) => {
-    setSelectedYear(year);
-    setSelectedClass(null);
-    setStudents([]);
-    setBackNavigationStack(["year"]);
+  // Mutations for adding data
+  const mutationAddProfil = useMutation({
+    mutationFn: addProfil,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["student-profiles"] });
+    },
+  });
+
+  const mutationAddAcademicYear = useMutation({
+    mutationFn: addAcademicYear,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["academic-years"] });
+    },
+  });
+
+  const mutationAddClassToYear = useMutation({
+    mutationFn: (variables: { year: string; className: string }) =>
+      addClassToYearApi(variables.year, variables.className),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["classes", selectedYear] });
+    },
+  });
+
+  function handleSelectYear(event: ChangeEvent<HTMLSelectElement>) {
+    setSelectedYear(event.target.value);
+    setSelectedClass(null); // Reset class and student selection when year changes
+    setSelectedStudent(null);
+  }
+
+  const handleSelectClass = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedClass(event.target.value);
+    setSelectedStudent(null); // Reset student selection when class changes
   };
 
-  const handleAddYear = () => {
-    if (newYear.trim() && !years.includes(newYear.trim())) {
-      const updatedYears = [...years, newYear.trim()];
-      setYears(updatedYears);
-      localStorage.setItem("years", JSON.stringify(updatedYears));
-      setNewYear("");
-    }
-  };
-
-  const handleAddClass = () => {
-    if (newClass.trim() && !classes.includes(newClass.trim())) {
-      const updatedClasses = [...classes, newClass.trim()].sort();
-      setClasses(updatedClasses);
-      setNewClass("");
-    }
-  };
-
-  const handleRemoveClass = (classToRemove: string) => {
-    setClasses(classes.filter((cls) => cls !== classToRemove));
-  };
-
-  const handleSelectClass = (className: string) => {
-    setSelectedClass(className);
-    setBackNavigationStack((prev) => [...prev, "classes"]);
-  };
-
-  const handleAddStudent = () => {
-    if (newStudent.trim() && !students.includes(newStudent.trim())) {
-      const updatedStudents = [...students, newStudent.trim()].sort();
-      setStudents(updatedStudents);
-      setNewStudent("");
+  const handleSelectStudent = (studentId: string) => {
+    setSelectedStudent(studentId);
+    const student = students?.find(
+      (s: { studentId: string }) => s.studentId === studentId
+    );
+    if (student) {
+      setStudentProfile(student);
     }
   };
 
-  const handleRemoveStudent = (studentToRemove: string) => {
-    setStudents(students.filter((student) => student !== studentToRemove));
-  };
-
-  const handleSelectStudent = (student: string) => {
-    setSelectedStudent(student);
-    setBackNavigationStack((prev) => [...prev, "students"]);
-  };
-
-  const handleBackNavigation = () => {
-    const lastPage = backNavigationStack.pop();
-    if (lastPage === "students") {
-      setSelectedStudent(null);
-    } else if (lastPage === "classes") {
-      setSelectedClass(null);
-    } else if (lastPage === "year") {
-      setSelectedYear(null);
-      setClasses([]);
-      setStudents([]);
-    }
-    setBackNavigationStack([...backNavigationStack]);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
     setStudentProfile((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSaveProfile = () => {
-    console.log("Profil Siswa:", studentProfile);
-    alert("Profil Siswa Berhasil Disimpan!");
-    setStudentProfile({
-      name: "",
-      studentID: "",
-      school: "",
-      className: "",
-      major: "",
-      dob: "",
-      religion: "",
-      gender: "",
-      address: "",
-      phone: "",
-      email: "",
-      parentInfo: {
-        fatherName: "",
-        motherName: "",
-        guardianName: "",
-        fatherPhone: "",
-        motherPhone: "",
-        guardianPhone: "",
-      },
-    });
-    setSelectedStudent(null);
+  const handleSaveProfile = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    if (selectedStudent && studentProfile) {
+      try {
+        await mutationAddProfil.mutateAsync(studentProfile);
+        setStudentProfile({
+          foto: "",
+          nama: "",
+          noIndukSiswa: "",
+          sekolah: "",
+          kelas: "",
+          jurusan: "",
+          alamat: "",
+          ttl: "",
+          noTelp: "",
+          email: "",
+          namaAyah: "",
+          namaIbu: "",
+          noTelpAyah: "",
+          noTelpIbu: "",
+          namaWali: "",
+          noTelpWali: "",
+          jenisKelamin: "",
+          agama: "",
+          academicYear: "",
+          studentId: "",
+        });
+      } catch (error) {
+        console.error("Failed to save profile:", error);
+      }
+    }
+  };
+
+  const handleAddAcademicYear = async () => {
+    if (newAcademicYear) {
+      try {
+        await mutationAddAcademicYear.mutateAsync({
+          year: newAcademicYear,
+          studentProfilId: 0,
+        });
+        setNewAcademicYear(""); // Reset input field
+      } catch (error) {
+        console.error("Failed to add academic year:", error);
+      }
+    }
+  };
+
+  const handleAddClassToYear = async () => {
+    if (newClassName && selectedYear) {
+      try {
+        await mutationAddClassToYear.mutateAsync({
+          year: selectedYear,
+          className: newClassName,
+        });
+        setNewClassName(""); // Reset input field
+      } catch (error) {
+        console.error("Failed to add class:", error);
+      }
+    }
   };
 
   return (
-    <main className="flex flex-row min-h-screen bg-[#f5f5dc] bg-opacity-20">
-      {/* Main Content */}
-      <div className="ml-64 p-8 w-full">
-        <h1 className="text-3xl font-bold mb-6">Dashboard Admin</h1>
+    <div className="text-center">
+      <h1>Admin - Manage Student Profile</h1>
 
-        {/* Profil Siswa */}
-        {selectedStudent && (
-          <section>
-            <h2 className="text-xl font-semibold">
-              Profil Siswa: {selectedStudent}
-            </h2>
-            <div>
-              <input
-                type="text"
-                name="name"
-                value={studentProfile.name}
-                onChange={handleInputChange}
-                placeholder="Nama Lengkap"
-                className="p-2 border rounded"
-              />
-              <input
-                type="text"
-                name="studentID"
-                value={studentProfile.studentID}
-                onChange={handleInputChange}
-                placeholder="Nomor Induk Siswa"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="school"
-                value={studentProfile.school}
-                onChange={handleInputChange}
-                placeholder="Sekolah"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="className"
-                value={studentProfile.className}
-                onChange={handleInputChange}
-                placeholder="Kelas"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="major"
-                value={studentProfile.major}
-                onChange={handleInputChange}
-                placeholder="Jurusan"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="dob"
-                value={studentProfile.dob}
-                onChange={handleInputChange}
-                placeholder="Tanggal Lahir"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="religion"
-                value={studentProfile.religion}
-                onChange={handleInputChange}
-                placeholder="Agama"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="gender"
-                value={studentProfile.gender}
-                onChange={handleInputChange}
-                placeholder="Jenis Kelamin"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="address"
-                value={studentProfile.address}
-                onChange={handleInputChange}
-                placeholder="Alamat"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="phone"
-                value={studentProfile.phone}
-                onChange={handleInputChange}
-                placeholder="Nomor Telepon"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="email"
-                name="email"
-                value={studentProfile.email}
-                onChange={handleInputChange}
-                placeholder="Email"
-                className="p-2 border rounded mt-2"
-              />
-              {/* Parent Info */}
-              <h3 className="font-semibold mt-4">Informasi Orang Tua</h3>
-              <input
-                type="text"
-                name="parentInfo.fatherName"
-                value={studentProfile.parentInfo.fatherName}
-                onChange={handleInputChange}
-                placeholder="Nama Ayah"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="parentInfo.motherName"
-                value={studentProfile.parentInfo.motherName}
-                onChange={handleInputChange}
-                placeholder="Nama Ibu"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="parentInfo.guardianName"
-                value={studentProfile.parentInfo.guardianName}
-                onChange={handleInputChange}
-                placeholder="Nama Wali"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="parentInfo.fatherPhone"
-                value={studentProfile.parentInfo.fatherPhone}
-                onChange={handleInputChange}
-                placeholder="Nomor Telepon Ayah"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="parentInfo.motherPhone"
-                value={studentProfile.parentInfo.motherPhone}
-                onChange={handleInputChange}
-                placeholder="Nomor Telepon Ibu"
-                className="p-2 border rounded mt-2"
-              />
-              <input
-                type="text"
-                name="parentInfo.guardianPhone"
-                value={studentProfile.parentInfo.guardianPhone}
-                onChange={handleInputChange}
-                placeholder="Nomor Telepon Wali"
-                className="p-2 border rounded mt-2"
-              />
-              <button
-                onClick={handleSaveProfile}
-                className="mt-4 p-2 bg-blue-500 text-white rounded"
-              >
-                Simpan Profil
-              </button>
-            </div>
-          </section>
-        )}
+      <div>
+        <label htmlFor="academic-year">Select Academic Year:</label>
+        <select
+          id="academic-year"
+          value={selectedYear || ""}
+          onChange={handleSelectYear}
+        >
+          <option value="">Select Year</option>
+          {Array.isArray(years) &&
+            years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+        </select>
+      </div>
 
-        {/* Class Management */}
-        {!selectedStudent && !selectedClass && (
-          <section>
-            <h2 className="text-xl font-semibold">Pilih Tahun</h2>
-            <div className="flex gap-4">
-              {years.map((year) => (
-                <button
-                  key={year}
-                  onClick={() => handleYearSelect(year)}
-                  className="p-2 bg-green-500 text-white rounded"
-                >
-                  {year}
-                </button>
+      <div>
+        <label htmlFor="new-academic-year">Add New Academic Year:</label>
+        <input
+          type="text"
+          id="new-academic-year"
+          value={newAcademicYear}
+          onChange={(e) => setNewAcademicYear(e.target.value)}
+          placeholder="Enter new academic year"
+        />
+        <button onClick={handleAddAcademicYear}>Add Year</button>
+      </div>
+
+      {selectedYear && (
+        <div>
+          <label htmlFor="class">Select Class:</label>
+          <select
+            id="class"
+            value={selectedClass || ""}
+            onChange={handleSelectClass}
+          >
+            <option value="">Select Class</option>
+            {Array.isArray(classes) &&
+              classes.map((classItem) => (
+                <option key={classItem} value={classItem}>
+                  {classItem}
+                </option>
               ))}
-            </div>
+          </select>
+        </div>
+      )}
+
+      <div>
+        <label htmlFor="new-class">Add New Class:</label>
+        <input
+          type="text"
+          id="new-class"
+          value={newClassName}
+          onChange={(e) => setNewClassName(e.target.value)}
+          placeholder="Enter new class name"
+        />
+        <button onClick={handleAddClassToYear}>Add Class</button>
+      </div>
+
+      {selectedClass && (
+        <div>
+          <h2>Students in {selectedClass}:</h2>
+          {Array.isArray(students) &&
+            students.map((student) => (
+              <button
+                key={student.studentId}
+                onClick={() => handleSelectStudent(student.studentId)}
+              >
+                {student.nama}
+              </button>
+            ))}
+        </div>
+      )}
+
+      {selectedStudent && (
+        <div>
+          <h2>Student Profile:</h2>
+          <form>
             <input
               type="text"
-              value={newYear}
-              onChange={(e) => setNewYear(e.target.value)}
-              placeholder="Tambah Tahun"
-              className="p-2 border rounded mt-4"
+              name="nama"
+              value={studentProfile.nama}
+              onChange={handleInputChange}
+              placeholder="Name"
             />
-            <button
-              onClick={handleAddYear}
-              className="p-2 bg-blue-500 text-white rounded mt-2"
-            >
-              Tambah Tahun
-            </button>
-          </section>
-        )}
-      </div>
-    </main>
+            <input
+              type="text"
+              name="noIndukSiswa"
+              value={studentProfile.noIndukSiswa}
+              onChange={handleInputChange}
+              placeholder="Student ID"
+            />
+            {/* Add other form inputs here as needed */}
+            <button onClick={handleSaveProfile}>Save Profile</button>
+          </form>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default AdminDashboard;
+export default AdminProfilPage;
+function addClassToYearApi(year: string, className: string): Promise<unknown> {
+  throw new Error("Function not implemented.");
+}
