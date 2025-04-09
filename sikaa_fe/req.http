@@ -1,0 +1,472 @@
+### add admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "username": "agam",
+  "password": "agam12345"
+}
+
+### update admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "password": "adamajaxcasdasdasd3"
+}
+
+### delete admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### login admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/auth/admin/login
+Content-Type: application/json
+
+{
+  "username": "anjeli",
+  "password": "anjeli123"
+}
+
+### login student✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/auth/student/login
+Content-Type: application/json
+
+{
+  "username": "1101213133",
+  "password": "1101213133SMA"
+}
+
+### login parent✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/auth/ortu/login
+Content-Type: application/json
+
+{
+  "username": "1234560987ortu",
+  "password": "1234560987SMK"
+}
+
+### whoami✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/auth/whoami
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInJvbGUiOiJTVFVERU5UIn0._AXyc_paRPh5p841cZS3lYR6dnb8CF6lOC5LwBtGzzE
+
+### add student profile by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/student-profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "nama": "TESS KEUNANGAN",
+  "noIndukSiswa": "12",
+  "sekolah": "SMA",
+  "kelas": "XII",
+  "jurusanId": 1,
+  "alamat": "Jl. Jauh Banget",
+  "ttl": "2003-02-05",
+  "jenisKelamin": "Laki-laki"
+}
+
+### get all student profile by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/student-profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get student prodile by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/student-profile/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update student profile by id from admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/student-profile/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "nama": "Adam Wisnu Pradana",
+  "noIndukSiswa": "1101213133",
+  "sekolah": "SMA",
+  "kelas": "XII",
+  "jurusanId": 1,
+  "alamat": "Jl. Jauh Banget",
+  "ttl": "2003-02-05",
+  "jenisKelamin": "Laki-laki"
+}
+
+### delete student profile by id from admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/student-profile/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get student count by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/admin/student-profile/count
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+
+### add transaction by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/finances
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "keuanganId": 2,
+  "amount": 870000,
+  "referensi": "Nyicil SPP",
+  "noJurnal": "JRN-20240204-005",
+  "type": "DEBIT",
+  "deskripsi": "Nyicil SPP bulan Mei",
+  "transDate": "2024-05-03T11:00:00.000Z"
+}
+### get transaction by student✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/finances/student
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get id transaction by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/finances/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get all transaction by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/finances
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add academic year by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/academic-year
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "year": 2029
+}
+
+### get all academic year by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/academic-year
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get academic year by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/academic-year/96950764-08ed-45a2-a6fa-df9b45db8242
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update academic year by id from admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/academic-year/96950764-08ed-45a2-a6fa-df9b45db8242
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "year": 2015
+}
+
+### delete academic year by id from admin❌
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/academic-year/96950764-08ed-45a2-a6fa-df9b45db8242
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add class by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "noKelas": "XI",
+  "academicYearId": "1650b519-51aa-4283-a580-d6cf4959b825",
+  "semester": "GANJIL",
+  "jurusanId": 1
+}
+
+### get all class by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+
+### get class by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update class by id from admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "noKelas": "Z",
+  "academicYearId": "1650b519-51aa-4283-a580-d6cf4959b825",
+  "semester": "GANJIL",
+  "jurusanId": 1
+}
+
+### delete class by id from admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add maajor by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/major
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "nama": "TSM",
+  "deskripsi": "Teknik Sepeda Motor"
+}
+
+### get all major by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/major
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get major by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/major/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update major by id from admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/major/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "nama": "RPLL",
+  "deskripsi": "Rekayasa Perangkat Lunak"
+}
+
+### delete major by id from admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/major/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+
+### add course by admin❌
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/course
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "type": "UMUM",
+  "namaMapel": "Pemrograman Dasar",
+  "JurusanId": 1
+}
+
+### get all course by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/course
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get course by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/course/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update course by id from admin❌
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/course/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "type": "UMUM",
+  "namaMapel": "Pemrograman Dasar",
+  "JurusanId": 1
+}
+
+### delete course by id from admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/course/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add class course by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-course
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "mapelId": 2,
+  "kelasId": 2
+}
+
+### get all class course by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-course
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get class course by id from admin❌
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-course/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update class course by id from admin❌
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-course/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "mapelId": 3,
+  "kelasId": 1
+}
+
+### delete class course by id from admin❌
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-course/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add class member by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-member
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "kelasId": 2,
+  "studentId": 3
+}
+
+### get all class member by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-member
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get class member by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-member/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update class member by id from admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-member/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "kelasId": 2,
+  "studentId": 5
+}
+
+### delete class member by id from admin❌
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/class-member/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+# ### add grades by admin
+# POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+# {
+#   "skor": 88,
+#   "pelajaran": "Pemrograman Dasar",
+#   "memberKelasId": 1
+# }
+
+### get all grades by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get grades by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades/8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+# ### update grades by id from admin✅
+# PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades/8
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+# {
+#   "skor": 90,
+#   "pelajaran": "Pemrograman Dasar",
+#   "memberKelasId": 1
+# }
+
+### delete grades by id from admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades/8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add attendance by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+   "tanggal": "2025-02-13",
+  "status": "Izin",
+  "memberKelasId": 1,
+  "mapelKelasId": 1,
+  "studentProfileId": 3
+}
+
+### get summary attendance student by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances/summary/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get all attendance by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get attendance by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get attendance student by token student✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances/student
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJTVFVERU5UIn0.EhdLK0wgWxnYpjiy8bIin02PZ-wSdzQve570Z7wmUTI
+
+### update attendance by id from admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "tanggal": "2025-01-2T13:59:00.000Z",
+  "status": "Hadir",
+  "memberKelasId": 1,
+  "studentId": 3
+}
+
+### delete attendance by id from admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add achievement by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/achievements
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "judul": "Juara 1 Lomba Cerdas Cermat",
+  "deskripsi": "Juara 1 Lomba Cerdas Cermat",
+  "tanggal": "2025-02-01T13:59:00.000Z",
+  "studentProfilId": 2
+}
+
+### get all achievement by admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/achievements
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### get achievement by id from admin✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/achievements/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### update achievement by id from admin✅
+PUT https://24gx69kq-3001.asse.devtunnels.ms/api/v1/achievements/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "judul": "Juara 1 Lomba Cerdas Banget",
+  "deskripsi": "Juara 1 Lomba Cerdas Banget",
+  "tanggal": "2025-02-01T13:59:00.000Z",
+  "studentProfilId": 3
+}
+
+### delete achievement by id from admin✅
+DELETE https://24gx69kq-3001.asse.devtunnels.ms/api/v1/achievements/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+### add grades by admin
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "studentProfileId": 3,
+  "mapelKelasId": 2,
+  "skor": 89
+}
+### get nilai from Student
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades/student
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJTVFVERU5UIn0.EhdLK0wgWxnYpjiy8bIin02PZ-wSdzQve570Z7wmUTI
+
+### add attendance by admin✅
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "tanggal": "2025-02-17",
+  "status": "Alpa",
+  "memberKelasId": 1,
+  "mapelKelasId": 2,
+  "studentProfileId": 3
+}
+
+### add grades by admin
+POST https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+{
+  "studentProfileId": 3,
+  "mapelKelasId": 1,
+  "skor": 77
+}
+
+### get grades form
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/grades/form
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+
+### get attendances form
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/attendances/form
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiJ9.ZkIv94sqRbZFEBuDKh0FGCDOe-kDoxd8NHyo843Ph70
+
+### get achievement by student✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/achievements/student
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJTVFVERU5UIn0.EhdLK0wgWxnYpjiy8bIin02PZ-wSdzQve570Z7wmUTI
+
+### get achievement by student✅
+GET https://24gx69kq-3001.asse.devtunnels.ms/api/v1/achievements/parent
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInJvbGUiOiJPUkFOR1RVQSJ9.i3aIULIALHcIw_vJBfH9TDGW5gk0XoyNeKc0nRooKpI
